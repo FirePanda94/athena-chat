@@ -1,7 +1,5 @@
-"use client";
-import { useEffect } from "react";
-import { apiClient } from "@/lib/apiClient";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return <div>Auth App</div>;
+  redirect("/dashboard");
 }
