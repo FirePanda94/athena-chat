@@ -4,10 +4,14 @@ import os
 from fastmcp import FastMCP
 
 mcp = FastMCP("python-sandbox")
+SANDBOX_ENABLED = os.getenv("SANDBOX_ENABLED", "true").lower() == "true"
 
 @mcp.tool()
 def run_python_code(code: str, packages: list[str] = []) -> str:
     """Run Python code in an isolated Docker container and return the output."""
+    if not SANDBOX_ENABLED:
+        return "Code execution is disabled in this environment."
+    
     client = docker.from_env(timeout=60)
 
     with tempfile.NamedTemporaryFile(
