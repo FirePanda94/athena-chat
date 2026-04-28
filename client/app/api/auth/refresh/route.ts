@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-const API_BASE_URL = process.env.API_URL;
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function POST(request: NextRequest) {
   const refreshToken = request.cookies.get("refresh_token")?.value;
