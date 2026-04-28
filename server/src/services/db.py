@@ -7,7 +7,8 @@ async def connect_db():
     global pool
     if pool is None:
         pool = await asyncpg.create_pool(
-            dsn=appConfig['database_url'] + "?sslmode=require"
+            dsn=appConfig['database_url'] + "?sslmode=require",
+            statement_cache_size=0
         )
 
 async def disconnect_db():

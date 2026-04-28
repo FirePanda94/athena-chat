@@ -28,8 +28,8 @@ guard_prompt = ChatPromptTemplate.from_messages([
     ("user", "{message}")
 ])
 
-async def check_input(message: str, model_name: str = "qwen-7b-instruct") -> InputGuardResult:
-    llm = get_llm("qwen-7b-instruct")
+async def check_input(message: str) -> InputGuardResult:
+    llm = get_llm("gpt-4o-mini")
     chain = guard_prompt | llm.with_structured_output(InputGuardResult)
     result: InputGuardResult = await chain.ainvoke({"message": message})
     print(f"[input_guard] safe={result.safe} reason={result.reason}")
