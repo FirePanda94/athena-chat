@@ -24,9 +24,6 @@ dependencies = [
     "langgraph-checkpoint-postgres (>=3.0.5,<4.0.0)",
     "psycopg[binary] (>=3.3.3,<4.0.0)",
     "fastmcp (>=3.2.4,<4.0.0)",
-    "code-sandbox-mcp @ git+https://github.com/philschmid/code-sandbox-mcp.git",
-    "pywin32 (>=311,<312)",
-    "slowapi (>=0.1.9,<0.2.0)"
 ]
 
 
