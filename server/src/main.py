@@ -15,6 +15,7 @@ from src.config.index import appConfig
 from typing import Optional
 from uuid import uuid4
 import json
+import ssl
 from src.utils.rate_limiter import check_rate_limit
 from src.guardrails.input_guard import check_input
 from src.guardrails.output_guard import check_output
@@ -24,10 +25,10 @@ async def lifespan(app):
     await connect_db()
 
     async with AsyncConnectionPool(
-    conninfo=appConfig['database_url'],
-    max_size=10,
-    kwargs={"autocommit": True}
-    ) as pool_pg:
+        conninfo=appConfig['database_url'] + "?sslmode=require",
+        max_size=10,
+        kwargs={"autocommit": True}
+        ) as pool_pg:
         checkpointer = AsyncPostgresSaver(pool_pg)
         await checkpointer.setup()
         app.state.graph = build_supervisor(checkpointer)
@@ -173,7 +174,7 @@ app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["http://localhost:3000","https://athena-chat-five.vercel.app/"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
